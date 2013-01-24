@@ -5,18 +5,23 @@ License: BSD
 modified by Oliver Kopp, 2012.
  * added support for configurable image paths
  * a new msgBox can be shown within an existing msgBox
+modified by João Ribeiro, 2013.
+ * added type to html content that dosent show any msgBox image
+ * added possibility to control width and height
+ * fixed a bug of the divMsgBoxBackGround resize
+ * added return in success function to stop msgBox from close when data validation fails
 */
-
 /*
 contact :
 
 halil@ibrahimkalyoncu.com
 koppdev@googlemail.com
+joaopedro.ribeiro@sapo.pt
 
 */
 
 // users may change this variable to fit their needs
-var msgBoxImagePath = "Images/";
+var msgBoxImagePath = "../Images/";
 
 jQuery.msgBox = msg;
 function msg (options) {
@@ -29,14 +34,16 @@ function msg (options) {
         autoClose: false,
         timeOut: 0,
         showButtons: true,
-        buttons: [{ value: "Ok"}],
+        buttons: (options.type != "html") ? [{ value: "Ok"}] : [],
         inputs: [{ type: "text", name:"userName", header: "User Name" }, { type: "password",name:"password", header: "Password"}],
         success: function (result) { },
         beforeShow: function () { },
         afterShow: function () { },
         beforeClose: function () { },
         afterClose: function () { },
-        opacity: 0.1
+        opacity: 0.1,
+        width: 430,
+        height: 160
     };
     options = typeOfValue == "string" ? defaults : options;
     if (options.type != null) {
@@ -58,12 +65,15 @@ function msg (options) {
                 options.title = options.title == null ? "Log In" : options.title;
                 options.buttons = options.buttons == null ? [{ value: "Login" }, { value: "Cancel"}] : options.buttons;
                 break;
+            case "html":
+                options.title = options.title == null ? "" : options.title;
+                break;
             default:
                 image = "alert.png";
         }
     }
     options.timeOut = options.timeOut == null ? (options.content == null ? 500 : options.content.length * 70) : options.timeOut;
-    options = $.extend(defaults, options);
+    options = $.extend({}, defaults, options); /* merge defaults and options, without modifying defaults */
     if (options.autoClose) {
         setTimeout(hide, options.timeOut);
     }
@@ -81,6 +91,9 @@ function msg (options) {
         case "confirm":
             image = "confirm.png";
             break;
+        case "html":
+            image = "";
+            break;
         default:
             image = "alert.png";
     }
@@ -92,7 +105,7 @@ function msg (options) {
     var divMsgBoxImageId = divId+"Image";
     var divMsgBoxButtonsId = divId+"Buttons";
     var divMsgBoxBackGroundId = divId+"BackGround";
-    
+    	
     var buttons = "";
     $(options.buttons).each(function (index, button) {
         buttons += "<input class=\"msgButton\" type=\"button\" name=\"" + button.value + "\" value=\"" + button.value + "\" />";
@@ -117,7 +130,7 @@ function msg (options) {
 
     var divBackGround = "<div id=" + divMsgBoxBackGroundId + " class=\"msgBoxBackGround\"></div>";
     var divTitle = "<div class=\"msgBoxTitle\">" + options.title + "</div>";
-    var divContainer = "<div class=\"msgBoxContainer\"><div id=" + divMsgBoxImageId + " class=\"msgBoxImage\"><img src=\"" + msgBoxImagePath + image + "\"/></div><div id=" + divMsgBoxContentId + " class=\"msgBoxContent\"><p><span>" + options.content + "</span></p></div></div>";
+    var divContainer = "<div class=\"msgBoxContainer\">" + (options.type != "html" ? "<div id=" + divMsgBoxImageId + " class=\"msgBoxImage\"><img src=\"" + msgBoxImagePath + image + "\"/></div><div id=" + divMsgBoxContentId + " class=\"msgBoxContent\"><p><span>" + options.content + "</span></p></div>" : "") + "</div>";
     var divButtons = "<div id=" + divMsgBoxButtonsId + " class=\"msgBoxButtons\">" + buttons + "</div>";
     var divInputs = "<div class=\"msgBoxInputs\">" + inputs + "</div>";
 
@@ -140,6 +153,11 @@ function msg (options) {
         divMsgBoxContent.css({"width":"100%","height":"100%"});
         divMsgBoxContent.html(divInputs);
     }
+    else if(options.type == "html"){
+    	$("html").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"msgBox\">" + divTitle  + "<div class=\"htmlContainer\">" + options.content + "</div>" + (options.showButtons ? divButtons : "") + "</div>");
+    	divMsgBox= $("#"+divMsgBoxId);
+    	divMsgBoxBackGround = $("#"+divMsgBoxBackGroundId);
+    }
     else {
         $("html").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"msgBox\">" + divTitle + "<div>" + divContainer + (options.showButtons ? divButtons + "</div>" : "</div>") + "</div>");
         divMsgBox= $("#"+divMsgBoxId); 
@@ -148,7 +166,19 @@ function msg (options) {
         divMsgBoxButtons = $("#"+divMsgBoxButtonsId);
         divMsgBoxBackGround = $("#"+divMsgBoxBackGroundId);
     }
-
+    
+    if(options.width != defaults.width){
+    	divMsgBox.width(options.width);
+    	if(options.width < 430)
+    		divMsgBox.css({"min-width": options.width + "px"});
+    }
+    if(options.height != defaults.height){
+    	divMsgBox.width(options.height);
+    	if(options.height < 160)
+    		divMsgBox.css({"min-height": options.height + "px"});
+    }
+    
+    
     var width = divMsgBox.width();
     var height = divMsgBox.height();
     var windowHeight = $(window).height();
@@ -182,6 +212,7 @@ function msg (options) {
             var left = windowWidth / 2 - width / 2;
 
             divMsgBox.css({ "top": top, "left": left });
+            divMsgBoxBackGround.css({"width": "100%", "height": "100%"}); /*Fixed a bug that background dont fill the window start small and then it's resized to a bigger size*/
         });
     }
 
@@ -210,10 +241,15 @@ function msg (options) {
     }
 
     $("input.msgButton").click(function (e) {
+    	var res;
         e.preventDefault();
         var value = $(this).val();
         if (options.type != "prompt") {
-            options.success(value);
+        	res = options.success(value);
+        }
+        else if(options.type != "prompt")
+        {
+        	res = options.success(value);
         }
         else {
             var inputValues = [];
@@ -228,10 +264,25 @@ function msg (options) {
                     inputValues.push({ name: name, value: value });
                 }
             });
-            options.success(value,inputValues);
+            res = options.success(value,inputValues);
         }
-        hide();
+        if(res !== false)
+        	hide();
     });
+    
+    /****************************************************************
+     * HTML buttons passed through content, (with type: "html")      *
+     * instead of by inputs parameter, need to have a class named    *
+     * "msgButtonHtml" to throw the event success.                   *
+     * Ex: <input type="submit" value="Send" class="msgButtonHtml"/> *
+     ****************************************************************/
+    $("input.msgButtonHtml").click(function (e) {
+        e.preventDefault();
+        var value = $(this).val();
+        if (options.success(value))
+        	hide();
+    });
+
 
     divMsgBoxBackGround.click(function (e) {
         if (!options.showButtons || options.autoClose) {
@@ -239,6 +290,8 @@ function msg (options) {
         }
         else {
             getFocus();
+            //TODO: call a function so we can send message to the user saying what he needs to do to close 
+            //the msgBox (if necessary of course)
         }
     });
 };

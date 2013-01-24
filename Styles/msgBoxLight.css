@@ -4,7 +4,7 @@
     position: fixed;
     z-index: 1000;
     font-family:Verdana;
-    width: 430px;
+    min-width: 430px;
     min-height:160px;
     color: #00335e;
     -moz-border-radius: 6px;
@@ -124,4 +124,10 @@ div.msgInput text
 {
     color:#2f2f2f;
     font-size:10pt;
+}
+
+div.htmlContainer{
+	display: block;
+	width: auto;
+	height: auto;
 }
