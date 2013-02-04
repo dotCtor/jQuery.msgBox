@@ -141,7 +141,7 @@ function msg (options) {
     var divMsgBoxBackGround;
     
     if (options.type == "prompt") {
-        $("html").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"msgBox\">" + divTitle + "<div>" + divContainer + (options.showButtons ? divButtons + "</div>" : "</div>") + "</div>");
+        $("body").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"msgBox\">" + divTitle + "<div>" + divContainer + (options.showButtons ? divButtons + "</div>" : "</div>") + "</div>");
         divMsgBox = $("#"+divMsgBoxId); 
         divMsgBoxContent = $("#"+divMsgBoxContentId); 
         divMsgBoxImage = $("#"+divMsgBoxImageId);
@@ -154,12 +154,12 @@ function msg (options) {
         divMsgBoxContent.html(divInputs);
     }
     else if(options.type == "html"){
-    	$("html").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"msgBox\">" + divTitle  + "<div class=\"htmlContainer\">" + options.content + "</div>" + (options.showButtons ? divButtons : "") + "</div>");
+    	$("body").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"msgBox\">" + divTitle  + "<div class=\"htmlContainer\">" + options.content + "</div>" + (options.showButtons ? divButtons : "") + "</div>");
     	divMsgBox= $("#"+divMsgBoxId);
     	divMsgBoxBackGround = $("#"+divMsgBoxBackGroundId);
     }
     else {
-        $("html").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"msgBox\">" + divTitle + "<div>" + divContainer + (options.showButtons ? divButtons + "</div>" : "</div>") + "</div>");
+        $("body").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"msgBox\">" + divTitle + "<div>" + divContainer + (options.showButtons ? divButtons + "</div>" : "</div>") + "</div>");
         divMsgBox= $("#"+divMsgBoxId); 
         divMsgBoxContent = $("#"+divMsgBoxContentId); 
         divMsgBoxImage = $("#"+divMsgBoxImageId);
