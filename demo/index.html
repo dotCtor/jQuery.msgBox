@@ -1,0 +1,553 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>jQuery msgBox</title>
+    
+    <!-- Includes to msgBox -->
+	<script type="text/JavaScript" src="../Scripts/jquery-1.9.0.min.js"></script> 
+	<script type="text/JavaScript" src="../Scripts/jquery.msgBox.js"></script> 
+	<link href="../Styles/msgBoxLight.css" rel="stylesheet" type="text/css">
+	<!-- Includes to msgBox -->
+
+	<!-- Includes to style this page and the examples code -->
+	<link href="DemoStylesAndScripts/style.css" rel="stylesheet" type="text/css">
+	<link href="DemoStylesAndScripts/SyntaxHighlighter.css" rel="stylesheet" type="text/css">
+	<script type="text/JavaScript" src="DemoStylesAndScripts/shCore.js"></script> 
+	<script type="text/JavaScript" src="DemoStylesAndScripts/shBrushJScript.js"></script> 
+	<!-- Includes to style this page and the examples code -->
+
+    <script type="text/javascript">
+        $(function () {
+    		dp.SyntaxHighlighter.ClipboardSwf = 'DemoStylesAndScripts/clipboard.swf';
+    		dp.SyntaxHighlighter.HighlightAll('code');
+        });
+    </script>
+
+    <script type="text/javascript">
+        function example1() {
+            $.msgBox({
+                title: "Selam / Hello",
+                content: "Merhaba Dünya! / Hello World!"
+            });
+        }
+
+        function example2() {
+            $.msgBox({
+                title: "Selam / Hello",
+                content: "Merhaba Dünya! / Hello World!",
+                type:"info"
+            });
+        }
+
+        function example3() {
+            $.msgBox({
+                title: "Are You Sure",
+                content: "Would you like a cup of coffee?",
+                type: "confirm",
+                buttons: [{ value: "Yes" }, { value: "No" }, { value: "Cancel"}],
+                success: function (result) {
+                    if (result == "Yes") {
+                        alert("One cup of coffee coming right up!");
+                    }
+                }
+            });
+        }
+
+        function example4() {
+            $.msgBox({
+                title: "Ooops",
+                content: "Ohh dear! You broke it!!!",
+                type: "error",
+                buttons: [{ value: "Ok"}],
+                afterShow: function (result) { alert("Message has been shown!"); }
+            });
+        }
+
+        function example5() {
+            $.msgBox({
+                title: "Ooops",
+                content: "Ohh dear! You broke it!!!",
+                type: "error",
+                beforeClose: function () { alert("Message will be closed!"); },
+                showButtons: false,
+                opacity: 0.9
+            });
+        }
+
+        function example6() {
+            $.msgBox({
+                title: "Ooops",
+                content: "Ohh dear! You broke it!!!",
+                type: "error",
+                showButtons: false,
+                opacity: 0.9,
+                autoClose:true
+            });
+        }
+
+        function example7() {
+            $.msgBox({ type: "prompt",
+                title: "Log In",
+                inputs: [
+                { header: "User Name", type: "text", name: "userName" },
+                { header: "Password", type: "password", name: "password" },
+                { header: "Remember me", type: "checkbox", name: "rememberMe", value: "theValue"}],
+                buttons: [
+                { value: "Login" }, { value: "Cancel"}],
+                success: function (result, values) {
+                    var v = result + " has been clicked\n";
+                    $(values).each(function (index, input) {
+                        v += input.name + " : " + input.value + 
+                        (input.checked != null ? (" - checked: " + input.checked) : "") + "\n";
+                    });
+                    alert(v);
+                }
+            });
+        }
+        function example8()
+        {
+        	$.msgBox({
+        	    title:"Teste Html",
+        	    type: "html",
+        	    content:"<div style=\"width:260px;height:150px;\" id=\"divLogin\">Name:<input type=\"text\" name=\"username8\" id=\"username8\" style=\"width:250px;\"/><br/>Password:<input type=\"password\" name=\"password8\" id=\"password8\" style=\"width:250px;\"/></div>",
+        	    buttons: [{ value: "Ok" }, { value: "Cancel"}],
+        	    width: 270,
+        	    success: function (result) {
+        	    	if (result == "Ok") {
+        	    		if ($("#username8").val() != "" && $("#password8").val() != ""){
+        	    			alert("Username = " + $("#username8").val() + "\n" + "Password = " + $("#password8").val());
+        	    			return true;
+        	    		}
+        	    		else{
+        	    			alert("Username = " + $("#username8").val() + "\n" + "Password = " + $("#password8").val() + "\n\n" + "Please fill the login info or hit cancel to close this msgBox");
+        	    			return false;
+        	    		}	
+        	        }
+        	    	else if(result == "Cancel")
+        	    	{
+        	    		return true;
+        	    	}
+        	    	return false;
+        	    }
+        	});
+        }
+        function example9()
+        {
+        	var html_content = "<form action='' method='post' id='singupForm' name='singupForm'> \
+        						<label>First Name:</label> \
+        						<input type='text' id='singupName2' name='singupName2'/> \
+        						<label>Last Name:</label> \
+        						<input type='text' id='singupLastName' name='singupLastName'/> \
+        						<label>Email:</label> \
+        						<input type='text' id='singupEmail' name='singupEmail'/> \
+        						<label>Email Confirmation:</label> \
+        						<input type='text' id='singupEmail2' name='singupEmail2'/> \
+        						<label>Password:</label> \
+        						<input type='password' id='singupPass' name='singupPass'/> \
+        						<label>Password Confirmation:</label> \
+        						<input type='password' id='singupPass2' name='singupPass2'/> \
+        						<input type='submit' value='Register' id='singupButton' class='msgButtonHtml'/> \
+        						</form>";
+        	
+        	$.msgBox({
+        	    title:"Teste Form Html",
+        	    type: "html",
+        	    content:html_content,
+        	    width: 315,
+        	    success: function (result) {
+        	    	if (result == "Register") {
+        	    		if($("#singupName2").val() != ""){
+        	    			return true;
+        	    		}
+        	        }
+        	    	alert("Fill the name and hit Register to close the msgBox");
+        	    	return false; /*Return true if really was a success and false if not (for instance login failed so we don't want the msgBox closing)*/
+        	    }
+        	});
+        }
+        
+        function example10()
+        {
+        	var html_content = "<iframe width='560' height='315' src='http://www.youtube.com/embed/0MRF_rn5aGc?autoplay=1' frameborder='0' allowfullscreen></iframe>";
+        	
+        	$.msgBox({
+        	    title: "Teste Youtube Video Html",
+        	    type: "html",
+        	    buttons: [{ value: "Close" }],
+        	    content: html_content
+        	});
+        }
+    </script>
+</head>
+<body>    
+
+
+
+<div style="display: block; width: 860px; margin: 0px auto;">
+
+
+    <h1>Examples</h1>
+
+<!--Example 1 End-->
+<div>
+    <pre name="code" class="js">
+		$.msgBox({
+		    title:"Selam / Hello",
+		    content:"Merhaba Dünya! / Hello World!"
+		});
+    </pre>
+</div>
+<div class="buttonBlock">
+    <input type="button" value="Example 1" onClick="example1();"/>
+</div>
+<!--Example 1 End-->
+
+<br/><br/>
+
+<!--Example 2-->
+<div>
+    <pre name="code" class="js">
+		$.msgBox({
+		    title:"Selam / Hello",
+		    content:"Merhaba Dünya! / Hello World!",
+		    type:"info"
+		});
+    </pre>
+</div>
+<div class="buttonBlock">
+    <input type="button" value="Example 2" onClick="example2();"/>
+</div>
+<!--Example 2 End-->
+
+<br/><br/>
+
+<!--Example 3-->
+<div>
+    <pre name="code" class="js">
+		$.msgBox({
+		    title: "Are You Sure",
+		    content: "Would you like a cup of coffee?",
+		    type: "confirm",
+		    buttons: [{ value: "Yes" }, { value: "No" }, { value: "Cancel"}],
+		    success: function (result) {
+		        if (result == "Yes") {
+		            alert("One cup of coffee coming right up!");
+		        }
+		    }
+		});
+    </pre>
+</div>
+<div class="buttonBlock">
+    <input type="button" value="Example 3" onClick="example3();"/>
+</div>
+<!--Example 3 End-->
+
+<br/><br/>
+
+<!--Example 4-->
+<div>
+    <pre name="code" class="js">
+		$.msgBox({
+		    title: "Ooops",
+		    content: "Ohh dear! You broke it!!!",
+		    type: "error",
+		    buttons: [{ value: "Ok" }],
+		    afterShow: function (result) { alert("Message has been shown!"); }
+		});
+    </pre>
+</div>
+<div class="buttonBlock">
+    <input type="button" value="Example 4" onClick="example4();"/>
+</div>
+<!--Example 4 End-->
+
+<br/><br/>
+
+<!--Example 5-->
+<div>
+    <pre name="code" class="js">
+		$.msgBox({
+		    title: "Ooops",
+		    content: "Ohh dear! You broke it!!!",
+		    type: "error",
+		    beforeClose: function () { alert("Message will be closed!"); },
+		    showButtons:false,
+		    opacity:0.9
+		});
+    </pre>
+</div>
+<div class="buttonBlock">
+    <input type="button" value="Example 5" onClick="example5();"/>
+</div>
+<!--Example 5 End-->
+
+<br/><br/>
+
+<!--Example 6-->
+<div>
+    <pre name="code" class="js">
+		$.msgBox({
+		    title: "Ooops",
+		    content: "Ohh dear! You broke it!!!",
+		    type: "error",
+		    showButtons: false,
+		    opacity: 0.9,
+		    autoClose:true
+		});
+    </pre>
+</div>
+<div class="buttonBlock">
+    <input type="button" value="Example 6" onClick="example6();"/>
+</div>
+<!--Example 6 End-->
+
+<br/><br/>
+
+<!--Example 7-->
+<div>
+    <pre name="code" class="js">
+		$.msgBox({ type: "prompt",
+		    title: "Log In",
+		    inputs: [
+		    { header: "User Name", type: "text", name: "userName" },
+		    { header: "Password", type: "password", name: "password" },
+		    { header: "Remember me", type: "checkbox", name: "rememberMe", value: "theValue" }],
+		    buttons: [
+		    { value: "Login" }, {value:"Cancel"}],
+		    success: function (result, values) {
+		        var v = result + " has been clicked\n";
+		        $(values).each(function (index, input) {
+		            v += input.name + " : " + input.value + 
+		            (input.checked != null ? (" - checked: " + input.checked) : "") + "\n";
+		        });
+		        alert(v);
+		    }
+		});
+    </pre>
+</div>
+<div class="buttonBlock">
+    <input type="button" value="Example 7" onClick="example7();"/>
+</div>
+<!--Example 7 End-->
+
+<br/><br/>
+
+<!--Example 8-->
+<div>
+    <pre name="code" class="js">
+		$.msgBox({
+		    title: "Teste Html",
+		    type: "html",
+		    content: '<div style="width:260px;height:150px;" id="divLogin">Name: \
+					    <input type="text" name="username8" id="username8" style="width:250px;"/> \
+					    <br/> Password: \
+					    <input type="password" name="password8" id="password8" style="width:250px;"/> \
+				     </div>',  
+		    buttons: [{ value: "Ok" }, { value: "Cancel"}],
+		    width: 270,
+		    autoClose: true,
+		    success: function (result) {
+		    	if (result == "Ok") {
+		    		if ($("#username").val() != "" && $("#password").val() != ""){
+		    			alert("Username = "+$("#username").val()+"\n"+"Password = "+$("#password").val());
+		    			return true;
+		    		}
+		    		else{
+		    			alert("Username = "+$("#username").val()+"\n"+"Password = "+$("#password").val()+"\n"+
+		    				  "Please fill the login info or hit cancel to close this msgBox");
+		    			return false; /*Return false if wasn't a success (for instance in case of empty 
+		    						   login fields we don't want the msgBox closing)*/
+		    		}	
+		        }
+		    	else if(result == "Cancel")
+		    	{
+		    		return true;
+		    	}
+		    	return false;
+		    }
+		});
+    </pre>
+</div>
+<div class="buttonBlock">
+    <input type="button" value="Example 8" onClick="example8();"/>
+</div>
+<!--Example 8 End-->
+
+<!--Example 9-->
+<div>
+    <pre name="code" class="js">
+	var html_content = '<form action="" method="post" id="singupForm" name="singupForm"> \
+							<label>First Name:</label> \
+							<input type="text" id="singupName" name="singupName"/> \
+							<label>Last Name:</label> \
+							<input type="text" id="singupLastName" name="singupLastName"/> \
+							<label>Email:</label> \
+							<input type="text" id="singupEmail" name="singupEmail"/> \
+							<label>Email Confirmation:</label> \
+							<input type="text" id="singupEmail2" name="singupEmail2"/> \
+							<label>Password:</label> \
+							<input type="password" id="singupPass" name="singupPass"/> \
+							<label>Password Confirmation:</label> \
+							<input type="password" id="singupPass2" name="singupPass2"/> \
+							<input type="submit" value="Register" id="singupButton" class="msgButtonHtml"/> \
+						</form>';
+	
+	$.msgBox({
+	    title: "Teste Form Html",
+	    type: "html",
+	    content: html_content,
+	    width: 315,
+	    success: function (result) {
+	    	if (result == "Register") {
+	    		if($("#singupName").val() != "")
+	    			return true;
+	        }
+	    	alert("Fill the name and hit Register to close the msgBox");
+	    	return false; /*Return true if really was a success and false if not 
+	    				    (for instance login failed so we don't want the msgBox closing)*/
+	    }
+	});
+    </pre>
+</div>
+<div class="buttonBlock">
+    <input type="button" value="Example 9" onClick="example9();"/>
+</div>
+<!--Example 9 End-->
+
+<!--Example 10-->
+<div>
+    <pre name="code" class="js">
+	var video_iframe = '<iframe width='560' height='315' src='http://www.youtube.com/embed/0MRF_rn5aGc?autoplay=1' frameborder='0' allowfullscreen></iframe>';
+	
+	$.msgBox({
+	    title: "Teste Youtube Video Html",
+	    type: "html",
+	    buttons: [{ value: "Close" }],
+	    content: video_iframe
+	});
+    </pre>
+</div>
+<div class="buttonBlock">
+    <input type="button" value="Example 10" onClick="example10();"/>
+</div>
+<!--Example 10 End-->
+
+<br/><br/>
+
+<!--Explanation-->
+<h1>Explanations</h1>
+<div class="explanation">
+<span>jQuery.msgBox is a plug-in to make smarter displaying messages. Also usage of the plug-in is so easy. You just need to add following 
+files to your page as shown below and the images named 'alert.png', 'confirm.png', 'error.png', 'info.png', 'msgBoxBackGround.png' used by plug-in to 'Images' folder in the root directory. That's all!!!
+</span>
+<br/><br/>
+</div>
+<div class="codeBlock">
+    <code>
+		&lt;script src=&quot;Scripts/jquery-1.9.0.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+		&lt;script src=&quot;Scripts/jquery.msgBox.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+		&lt;link href=&quot;Styles/msgBoxLight.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+    </code>
+</div>
+
+<!--Explanation-->
+<h1>jQuery.msgBox</h1>
+<span>Created by Halil İbrahim Kalyoncu (halil@ibrahimkalyoncu.com)</span>
+<h1>v1.0</h1>
+<div class="version">
+<span>With contribution from Oliver Kopp (koppdev@googlemail.com)</span><br/>
+<span>1 - Added support for configurable image paths. (use 'msgBoxImagePath' variable)<br />
+2 - A new msgBox can be shown within an existing msgBox.<br />
+</span>
+</div>
+<h1>v1.1</h1>
+<div class="version">
+<span></span>
+<span>With contribution from João Ribeiro (joaopedro.ribeiro@sapo.pt)</span><br/>
+<span>
+1 - Added type 'html' to include custom html content without the msgBox image.<br/>
+2 - Added width and height to options.<br/>
+3 - Added return FALSE option in success function to stop msgBox from close when the user data validation fails.<br/>
+4 - Fixed a bug with the background div resize.<br/>
+</span>
+</div>
+
+<h1>Options</h1>
+<div class="explanation">
+<span>Once you have linked/added theese tree required files to your page, you can call 'jQuery.msgBox()' function with following options.
+</span>
+    <table border="1" cellpadding="3px" cellspacing="0" style="border-color: #522c1b">
+        <tr>
+            <th>Option</th><th>Confirmable Values</th><th>Description</th>
+        </tr>
+        <tr>
+            <td>content</td><td>any string</td><td>the message text. as default:&#39;Message&#39;</td>
+        </tr>
+        <tr>
+            <td>title</td><td>any string</td><td>the title of the message as 
+            default:&#39;Warning&#39;</td>
+        </tr>
+        <tr>
+            <td>type</td><td>'alert','confirm','error','info',&#39;prompt&#39;,'html'</td><td>type of the message will be shown. as default:'alert'</td>
+        </tr>
+        <tr>
+            <td>autoClose</td><td>boolean values</td><td>true for activating auto-closing, else false. as default:false</td>
+        </tr>
+        <tr>
+            <td>timeOut</td><td>milisecons</td><td>auto-close timeout. as 
+            default:content.length * 70</td>
+        </tr>
+        <tr>
+            <td>showButtons</td><td>boolean values</td><td>true for displayin buttons on 
+            message, else false. as default:true</td>
+        </tr>
+        <tr>
+            <td>buttons</td><td>array</td><td>format:[{value:&quot;Button1&quot;},{value:&quot;Button2&quot;}]. 
+            as default:[{value:&quot;Ok&quot;}]</td>
+        </tr>
+        <tr>
+            <td>success</td><td>callback</td><td>a callback function that passed the value 
+            of the button has been clicked. <br/>the user can return FALSE inside this function to prevent the msgBox from closing. <br/>NOTE: returning something different then FALSE or not returning anything will close the msgBox. (this can be used to validate stuff like input values.)</td>
+        </tr>
+        <tr>
+            <td>beforeShow</td><td>callback</td><td>a callback before message 
+            shown.</td>
+        </tr>
+        <tr>
+            <td>afterShow</td><td>callback</td><td>a callback after message 
+            shown.</td>
+        </tr>
+
+        <tr>
+            <td>beforeClose</td><td>callback</td><td>a callback before message 
+            closed.</td>
+        </tr>
+
+        <tr>
+            <td>afterClose</td><td>callback</td><td>a callback after message closed.</td>
+        </tr>
+
+        <tr>
+            <td>opacity</td><td>a value 1 between 0</td><td>the css property of the back 
+            panel of message box. as default:0.1</td>
+        </tr>
+        
+        <tr>
+            <td>width</td><td>integer</td><td>the css property to define a custom width to the msgBox</td>
+        </tr>
+        
+        <tr>
+            <td>height</td><td>integer</td><td>the css property to define a custom height to the msgBox</td>
+        </tr>
+
+    </table>
+</div>
+
+<div class="explanation" style="text-align:right; margin-top:25px; font-size:8pt;">
+    <span>Halil İbrahim Kalyoncu - 2011</span>
+</div>
+<!--Explanation End-->
+</div>
+</body>
+</html>

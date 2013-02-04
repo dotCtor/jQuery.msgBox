@@ -1,0 +1,32 @@
+@CHARSET "UTF-8";
+
+body{
+	color: #003D99;
+	font-family: times, serif; 
+	font-size:14px;
+	background: #f0f0f0;
+}
+
+#divLogin input{
+	display: block;
+	width: 300px;
+	padding: 6px;
+	margin-top: 4px;
+}
+
+#singupForm{	
+	margin: 25px 0px;
+}
+
+#singupForm input{
+	display: block;
+	width: 300px;
+	padding: 6px;
+	margin-top: 4px;
+}
+
+#singupForm label{
+	display: block;
+	margin-top: 4px;
+}
+

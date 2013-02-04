@@ -4,7 +4,7 @@
     position: fixed;
     z-index: 1000;
     font-family:Verdana;
-    width: 430px;
+    min-width: 430px;
     min-height:160px;
     color: #00335e;
     -moz-border-radius: 6px;
@@ -93,6 +93,7 @@ div.msgBoxButtons input[type='button']
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
     border-radius: 6px;
+    outline: none; 
 }
 div.msgBoxButtons input[type='button']:hover
 {
@@ -103,6 +104,18 @@ div.msgBoxButtons input[type='button']:active
 {
     background-color:#AAAAAA;
     color:White;
+}
+
+div.msgBoxButtons input[type='button']:focus
+{
+    outline: none; 
+    border: solid 2px #FFCC66;
+}
+
+div.msgBoxButtons input[type='button']::-moz-focus-inner
+{
+    outline: none; 
+    border: none;
 }
 
 div.msgBoxInputs
@@ -124,4 +137,10 @@ div.msgInput text
 {
     color:#2f2f2f;
     font-size:10pt;
+}
+
+div.htmlContainer{
+	display: block;
+	width: auto;
+	height: auto;
 }
