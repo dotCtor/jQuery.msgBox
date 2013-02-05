@@ -63,7 +63,7 @@ function msg (options) {
         }
     }
     options.timeOut = options.timeOut == null ? (options.content == null ? 500 : options.content.length * 70) : options.timeOut;
-    options = $.extend(defaults, options);
+    options = $.extend({}, defaults, options);
     if (options.autoClose) {
         setTimeout(hide, options.timeOut);
     }
@@ -128,7 +128,7 @@ function msg (options) {
     var divMsgBoxBackGround;
     
     if (options.type == "prompt") {
-        $("html").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"msgBox\">" + divTitle + "<div>" + divContainer + (options.showButtons ? divButtons + "</div>" : "</div>") + "</div>");
+        $("body").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"msgBox\">" + divTitle + "<div>" + divContainer + (options.showButtons ? divButtons + "</div>" : "</div>") + "</div>");
         divMsgBox = $("#"+divMsgBoxId); 
         divMsgBoxContent = $("#"+divMsgBoxContentId); 
         divMsgBoxImage = $("#"+divMsgBoxImageId);
@@ -141,7 +141,7 @@ function msg (options) {
         divMsgBoxContent.html(divInputs);
     }
     else {
-        $("html").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"msgBox\">" + divTitle + "<div>" + divContainer + (options.showButtons ? divButtons + "</div>" : "</div>") + "</div>");
+        $("body").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"msgBox\">" + divTitle + "<div>" + divContainer + (options.showButtons ? divButtons + "</div>" : "</div>") + "</div>");
         divMsgBox= $("#"+divMsgBoxId); 
         divMsgBoxContent = $("#"+divMsgBoxContentId); 
         divMsgBoxImage = $("#"+divMsgBoxImageId);
@@ -182,6 +182,7 @@ function msg (options) {
             var left = windowWidth / 2 - width / 2;
 
             divMsgBox.css({ "top": top, "left": left });
+            divMsgBoxBackGround.css({"width": "100%", "height": "100%"});
         });
     }
 
