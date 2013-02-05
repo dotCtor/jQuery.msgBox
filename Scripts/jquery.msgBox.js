@@ -86,7 +86,7 @@ function msg (options) {
     }
     
     var divId = "msgBox" + new Date().getTime();
-    if ($.browser.msie  && parseInt($.browser.version, 10) === 7) { var divMsgBoxContentClass = = "msgBoxContentIEOld"; } else { var divMsgBoxContentClass = "msgBoxContent";}
+    if ($.browser.msie  && parseInt($.browser.version, 10) === 7) { var divMsgBoxContentClass = "msgBoxContentIEOld"; } else { var divMsgBoxContentClass = "msgBoxContent";}
     var divMsgBoxId = divId; 
     var divMsgBoxContentId = divId+"Content"; 
     var divMsgBoxImageId = divId+"Image";
