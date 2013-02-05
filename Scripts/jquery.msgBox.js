@@ -86,7 +86,10 @@ function msg (options) {
     }
     
     var divId = "msgBox" + new Date().getTime();
-    if ($.browser.msie  && parseInt($.browser.version, 10) === 7) { var divMsgBoxContentClass = "msgBoxContentIEOld"; } else { var divMsgBoxContentClass = "msgBoxContent";}
+    
+    /* i was testing with ($.browser.msie  && parseInt($.browser.version, 10) === 7) but $.browser.msie is not working with jQuery 1.9.0 :S. Alternative method: */
+    if ( navigator.userAgent.match(/msie/i) && navigator.userAgent.match(/6/) ) { var divMsgBoxContentClass = "msgBoxContentIEOld"; } else { var divMsgBoxContentClass = "msgBoxContent";}
+    
     var divMsgBoxId = divId; 
     var divMsgBoxContentId = divId+"Content"; 
     var divMsgBoxImageId = divId+"Image";
