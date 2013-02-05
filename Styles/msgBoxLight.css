@@ -75,6 +75,34 @@ div.msgBoxContent span
     color: #00335e;
 }
 
+/* Content class for IE7*/
+
+div.msgBoxContentIEOld
+{
+    font-size:11pt;
+    margin:0 3px 6px 3px;
+    display:inline-block;
+    float:left;
+    height:90px;
+    width:319px;
+	position: relative;
+}
+div.msgBoxContentIEOld p
+{
+    padding:0;
+    margin:0;
+    position: absolute;
+	top: 50%;
+}
+
+div.msgBoxContentIEOld span 
+{
+    position: relative;
+	top: -50%;
+}
+
+/* Content class for IE7*/
+
 div.msgBoxButtons
 {
     display:inline-block;
@@ -109,11 +137,12 @@ div.msgBoxButtons input[type='button']:active
 div.msgBoxButtons input[type='button']:focus
 {
     outline: none; 
-    border: solid 2px #FFCC66;
+    border: solid 2px #FFCC66; /* replace outline by a border */
+	-o-transform:rotate(0); /*remove opera outline*/
 }
 
-div.msgBoxButtons input[type='button']::-moz-focus-inner
-{
+div.msgBoxButtons input[type='button']::-moz-focus-inner /*remove firefox inner outline*/
+{ 
     outline: none; 
     border: none;
 }

@@ -86,7 +86,7 @@ function msg (options) {
     }
     
     var divId = "msgBox" + new Date().getTime();
-    
+    if ($.browser.msie  && parseInt($.browser.version, 10) === 7) { var divMsgBoxContentClass = = "msgBoxContentIEOld"; } else { var divMsgBoxContentClass = "msgBoxContent";}
     var divMsgBoxId = divId; 
     var divMsgBoxContentId = divId+"Content"; 
     var divMsgBoxImageId = divId+"Image";
@@ -115,10 +115,10 @@ function msg (options) {
         }
     });
 
-    var divBackGround = "<div id=" + divMsgBoxBackGroundId + " class=\"msgBoxBackGround\"></div>";
+    var divBackGround = "<div id=\"" + divMsgBoxBackGroundId + "\" class=\"msgBoxBackGround\"></div>";
     var divTitle = "<div class=\"msgBoxTitle\">" + options.title + "</div>";
-    var divContainer = "<div class=\"msgBoxContainer\"><div id=" + divMsgBoxImageId + " class=\"msgBoxImage\"><img src=\"" + msgBoxImagePath + image + "\"/></div><div id=" + divMsgBoxContentId + " class=\"msgBoxContent\"><p><span>" + options.content + "</span></p></div></div>";
-    var divButtons = "<div id=" + divMsgBoxButtonsId + " class=\"msgBoxButtons\">" + buttons + "</div>";
+    var divContainer = "<div class=\"msgBoxContainer\"><div id=\"" + divMsgBoxImageId + "\" class=\"msgBoxImage\"><img src=\"" + msgBoxImagePath + image + "\"/></div><div id=\"" + divMsgBoxContentId + "\" class=\"" + divMsgBoxContentClass + "\"><p><span>" + options.content + "</span></p></div></div>";
+    var divButtons = "<div id=\"" + divMsgBoxButtonsId + "\" class=\"msgBoxButtons\">" + buttons + "</div>";
     var divInputs = "<div class=\"msgBoxInputs\">" + inputs + "</div>";
 
     var divMsgBox; 
