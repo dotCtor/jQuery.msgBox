@@ -16,7 +16,7 @@ koppdev@googlemail.com
 */
 
 // users may change this variable to fit their needs
-var msgBoxImagePath = "Images/";
+var msgBoxImagePath = "images/";
 
 jQuery.msgBox = msg;
 function msg (options) {
@@ -88,7 +88,7 @@ function msg (options) {
     var divId = "msgBox" + new Date().getTime();
     
     /* i was testing with ($.browser.msie  && parseInt($.browser.version, 10) === 7) but $.browser.msie is not working with jQuery 1.9.0 :S. Alternative method: */
-    if ( navigator.userAgent.match(/msie/i) && navigator.userAgent.match(/6/) ) { var divMsgBoxContentClass = "msgBoxContentIEOld"; } else { var divMsgBoxContentClass = "msgBoxContent";}
+    if ( navigator.userAgent.match(/msie 7/i) !== null) { var divMsgBoxContentClass = "msgBoxContentIEOld"; } else { var divMsgBoxContentClass = "msgBoxContent";}
     
     var divMsgBoxId = divId; 
     var divMsgBoxContentId = divId+"Content"; 
