@@ -241,7 +241,7 @@ function msg (options) {
     divMsgBoxBackGround.click(function (e) {
         if ( options.modal )
             return;
-        if (!options.showButtons || options.autoClose) {
+        if (!options.showButtons || (options.showButtons && options.buttons.length<2) || options.autoClose) {
             hide();
         }
         else {
