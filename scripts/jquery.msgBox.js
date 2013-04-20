@@ -113,7 +113,7 @@ function msg (options) {
         }
         else {
             inputs += "<div class=\"msgInput\">" +
-            "<span class=\"msgInputHeader\">" + input.header + "<span>" +
+            "<span class=\"msgInputHeader\">" + input.header + "</span>" +
             "<input type=\"" + input.type + "\" name=\"" + input.name + "\" value=\"" + (typeof input.value == "undefined" ? "" : input.value) + "\" />" +
             "</div>";
         }
