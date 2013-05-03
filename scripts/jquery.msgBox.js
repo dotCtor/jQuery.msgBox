@@ -96,10 +96,17 @@ function msg (options) {
     var divMsgBoxImageId = divId+"Image";
     var divMsgBoxButtonsId = divId+"Buttons";
     var divMsgBoxBackGroundId = divId+"BackGround";
+	var firstButtonId = divId+"FirstButton";
     
     var buttons = "";
+	var isFirstButton = true;
     $(options.buttons).each(function (index, button) {
-        buttons += "<input class=\"msgButton\" type=\"button\" name=\"" + button.value + "\" value=\"" + button.value + "\" />";
+        var add = "";
+        if (isFirstButton) {
+            add = ' id="' + firstButtonId + '"';
+            isFirstButton = false;
+        }
+        buttons += "<input class=\"msgButton\" type=\"button\" name=\"" + button.value + "\" value=\"" + button.value + "\"" + add + "/>";
     });
 
     var inputs = "";
@@ -175,6 +182,7 @@ function msg (options) {
         $(divMsgBoxId+","+divMsgBoxBackGroundId).fadeIn(0);
         divMsgBox.animate({ opacity: 1, "top": top, "left": left }, 200);
         setTimeout(options.afterShow, 200);
+        $("#" + firstButtonId).focus();
         isShown = true;
         $(window).bind("resize", function (e) {
             var width = divMsgBox.width();
