@@ -28,6 +28,7 @@ function msg (options) {
         type: "alert",
         autoClose: false,
         timeOut: 0,
+        modal: false,
         showButtons: true,
         buttons: [{ value: "Ok"}],
         inputs: [{ type: "text", name:"userName", header: "User Name" }, { type: "password",name:"password", header: "Password"}],
@@ -238,7 +239,9 @@ function msg (options) {
     });
 
     divMsgBoxBackGround.click(function (e) {
-        if (!options.showButtons || options.autoClose) {
+        if ( options.modal )
+            return;
+        if (!options.showButtons || (options.showButtons && options.buttons.length<2) || options.autoClose) {
             hide();
         }
         else {
