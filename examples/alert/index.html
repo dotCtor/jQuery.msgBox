@@ -1,0 +1,21 @@
+<html>
+<head>
+  <script type='text/javascript' src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js'></script>
+  <script type='text/javascript' src='../../scripts/jquery.msgBox.js'></script>
+  <link rel="stylesheet" href="../../styles/msgBoxLight.css" />
+</head>
+<body>
+	<button onClick="showMsgBox();" id="showBtn">Show MsgBox</button>
+	<button>Do nothing</button>
+	<script>
+		$("#showBtn").focus();
+		msgBoxImagePath = "../../images/";
+		function showMsgBox() {
+			$.msgBox({
+				title: "Alert box",
+				content: "message",
+				type: "alert"
+			});
+		}
+	</script>
+</body>
