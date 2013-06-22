@@ -175,6 +175,7 @@ function msg (options) {
         divMsgBoxButtons = $("#"+divMsgBoxButtonsId);
         divMsgBoxBackGround = $("#"+divMsgBoxBackGroundId);
     }
+    divMsgBoxContent.height('auto');
 
     var width = divMsgBox.width();
     var height = divMsgBox.height();
