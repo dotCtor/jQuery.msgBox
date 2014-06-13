@@ -4,6 +4,6 @@ jQuery.msgBox is a plug-in to make smarter displaying messages. Also usage of th
 <script src="scripts/jquery.msgBox.js" type="text/javascript"></script>
 <link href="styles/msgBoxLight.css" rel="stylesheet" type="text/css">
 
-see how to use at http://jquerymsgbox.ibrahimkalyoncu.com/
+See how to use at http://dotctor.github.io/jQuery.msgBox/
 
 halil@ibrahimkalyoncu.com
