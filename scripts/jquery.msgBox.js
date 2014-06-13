@@ -224,6 +224,7 @@ function msg (options) {
         divMsgBoxBackGround.fadeOut(300);
         setTimeout(function () { divMsgBox.remove(); divMsgBoxBackGround.remove(); }, 300);
         setTimeout(options.afterClose, 300);
+        $(window).unbind("resize");
         isShown = false;
     }
 
