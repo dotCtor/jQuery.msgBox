@@ -6,4 +6,7 @@ jQuery.msgBox is a plug-in to make smarter displaying messages. Also usage of th
 
 See how to use at http://dotctor.github.io/jQuery.msgBox/
 
-halil@ibrahimkalyoncu.com
+Currently, this code is **not maintained**.
+Alternatives such as bootstrap are recommended.
+See http://getbootstrap.com/javascript/#modals for modals in bootstrap.
+Nevertheless, we welcome pull requests.
