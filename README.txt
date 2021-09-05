@@ -10,3 +10,17 @@ Currently, this code is **not maintained**.
 Alternatives such as bootstrap are recommended.
 See http://getbootstrap.com/javascript/#modals for modals in bootstrap.
 Nevertheless, we welcome pull requests.
+
+// edit by Maik Tizziani
+
+For using with RequireJS use the file jquery.msgBox.require.js.
+
+You can use it like that:
+
+require(
+  ['jquery', 'path/to/libs/jQuery.msgBox/scripts/jquery.msgBox.require], 
+  function($, msgBox){
+    msgBox({
+      // your box settings, see the other samples
+    });
+  });
