@@ -125,7 +125,7 @@ function msg (options) {
     var inputs = "";
     $(options.inputs).each(function (index, input) {
         var type = input.type;
-        if (type=="checkbox" || type =="radiobutton") {
+        if (type=="checkbox" || type =="radio") {
             inputs += "<div class=\"msgInput\">" +
             "<input type=\"" + input.type + "\" name=\"" + input.name + "\" "+(input.checked == null ? "" : "checked ='"+input.checked+"'")+" value=\"" + (typeof input.value == "undefined" ? "" : input.value) + "\" />" +
             "<text>"+input.header +"</text>"+
@@ -252,7 +252,7 @@ function msg (options) {
                 var name = $(this).attr("name");
                 var value = $(this).val();
                 var type = $(this).attr("type");
-                if (type == "checkbox" || type == "radiobutton") {
+                if (type == "checkbox" || type == "radio") {
                     inputValues.push({ name: name, value: value,checked: $(this).attr("checked")});
                 }
                 else {
